@@ -1,3 +1,4 @@
+package File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.*;
@@ -9,7 +10,7 @@ public class logGenerator {
 
 
 
-    void begin_logging(int peerid) {
+    public static void begin_logging(int peerid) {
         peerID = peerid;
         try {
             String curr_directory = System.getProperty("user.dir");

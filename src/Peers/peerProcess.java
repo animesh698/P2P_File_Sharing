@@ -3,7 +3,7 @@ import Common.Client_Connect;
 import Common.Server_Connect;
 import File.CommonCfg;
 import File.PeerCfg;
-import ;
+import File.logGenerator;
 import java.util.ArrayList;
 import Peers.Messages.bitfield;
 import Peers.Messages.piece;
@@ -49,7 +49,8 @@ public class peerProcess {
 
         //bitfield.bitfield_set(peer_process.hasFile,peer_process.TotalPieces);
 
-        logGenerator.startLogger(peer_process.peerID);
+        logGenerator.begin_logging(peer_process.peerID);
+        peer_process.hasFile = true;
 
 
 
