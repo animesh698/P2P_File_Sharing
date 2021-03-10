@@ -1,3 +1,5 @@
+package Common;
+
 import java.net.*;
 import java.io.*;
 
@@ -5,14 +7,14 @@ public class Server_Connect extends Thread {
     Socket soc = null;
     ServerSocket soc_server = null;
     DataInputStream Input = null;
-    int peerID;
+    int current_peerID;
     int have_all_pieces;
     int port_no;
     int listener_port;
 
-    Server_Connect(int peerID,int port_no,int listener_port){
-        peerID = peerID;
-        this.port_no = port_no;
+    public Server_Connect(int peerID, int listener_port){
+        current_peerID = peerID;
+        //this.port_no = port_no;
         this.listener_port = listener_port;
 
     }
@@ -29,7 +31,7 @@ public class Server_Connect extends Thread {
                 byte[] get_HandShake_server = Receive_handshake_server(soc);
 
 
-                HandShake_Message server_Msg = new HandShake_Message(peerID);
+                HandShake_Message server_Msg = new HandShake_Message(current_peerID);
                 Send_HandShake_server(soc, server_Msg.Msg);
 
                 byte[] header_info = new byte[28];

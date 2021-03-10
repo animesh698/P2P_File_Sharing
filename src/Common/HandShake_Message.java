@@ -1,3 +1,5 @@
+package Common;
+
 public class HandShake_Message {
     byte[] Msg = new byte[32];
     String Header = "P2PFILESHARINGPROJ";

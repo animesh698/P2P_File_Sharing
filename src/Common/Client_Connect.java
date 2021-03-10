@@ -1,25 +1,29 @@
-import java.net.*;
-import java.io.*;
+package Common;
 
+import File.PeerCfg;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-public class ConnectTo extends Thread {
+public class Client_Connect extends Thread {
     String Hostname;
     int port_no;
-    int PeerID;
+    int current_peerID;
     int totalPieces;
     boolean have_All_Pieces;
     long piece_Size;
     long file_Size;
 
-    ConnectTo(int PeerID,int port_no,boolean have_All_Pieces,long file_Size,long piece_Size){
-        PeerID = PeerID;
+    Client_Connect(int PeerID, int port_no){
+        current_peerID = PeerID;
         this.port_no = port_no;
-        this.have_All_Pieces = have_All_Pieces;
-        this.file_Size = file_Size;
-        this.piece_Size = piece_Size;
+        //this.have_All_Pieces = have_All_Pieces;
+        //this.file_Size = file_Size;
+        //this.piece_Size = piece_Size;
     }
     @Override
     public void run(){
@@ -27,7 +31,7 @@ public class ConnectTo extends Thread {
         //array for header information
 
         byte[] buff = new byte[32];
-        PeerCfg peer_connect = new PeerCfg(PeerID);
+        PeerCfg peer_connect = new PeerCfg(current_peerID);
         ArrayList<String[]> client_side_connection ;
         client_side_connection = peer_connect.getPeerDetails();
 
@@ -43,7 +47,7 @@ public class ConnectTo extends Thread {
                 //create a new socket
                 Socket soc = new Socket(Hostname,port_no);
                 //create handshake msg
-                HandShake_Message Msg_send = new HandShake_Message(PeerID);
+                HandShake_Message Msg_send = new HandShake_Message(current_peerID);
                 //send handshake message
                 Send_HandShake(soc,Msg_send.Msg);
 
