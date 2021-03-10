@@ -10,6 +10,7 @@ public class logGenerator {
 
 
     void begin_logging(int peerid) {
+        peerID = peerid;
         try {
             String curr_directory = System.getProperty("user.dir");
             String k = curr_directory + "\\log_peer_" + peerid + ".log";
