@@ -75,7 +75,7 @@ public class Client_Connect extends Thread {
                 //create handshake msg
                 HandShake_Message Msg_send = new HandShake_Message(current_peerID);
                 System.out.println("socket created");
-                HandShake_Message Msg_send = new HandShake_Message(current_peerID);
+                //HandShake_Message Msg_send = new HandShake_Message(current_peerID);
                 //send handshake message
                 Send_HandShake(soc,Msg_send.Msg);
 

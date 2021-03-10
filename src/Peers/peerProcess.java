@@ -3,6 +3,7 @@ import Common.Client_Connect;
 import Common.Server_Connect;
 import File.CommonCfg;
 import File.PeerCfg;
+import ;
 import java.util.ArrayList;
 import Peers.Messages.bitfield;
 import Peers.Messages.piece;
@@ -48,7 +49,7 @@ public class peerProcess {
 
         //bitfield.bitfield_set(peer_process.hasFile,peer_process.TotalPieces);
 
-        //LogWritter.startLogger(peerProc.peerID);
+        logGenerator.startLogger(peer_process.peerID);
 
 
 
@@ -64,7 +65,7 @@ public class peerProcess {
         }
 
         else if(peer_process.hasFile) {
-            FileParser reader = new FileParser(peer_process.peerID, peer_process.PieceSize, FileName);
+            File.FileParser reader = new File.FileParser(peer_process.peerID, peer_process.PieceSize, FileName);
             hash_map = reader.readFile();
 
             Server_Connect peer_listener = new Server_Connect(peer_process.peerID, peer_process.port);
@@ -81,6 +82,7 @@ public class peerProcess {
 
 
     }
+
 
 
 

@@ -94,12 +94,14 @@ public class logGenerator {
     }
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         logGenerator hand = new logGenerator();
         hand.begin_logging(1001);
 
     }
 
+
+     */
 }
 
 
