@@ -18,6 +18,24 @@ public class Server_Connect extends Thread {
         this.listener_port = listener_port;
 
     }
+
+    void Send_HandShake_server(Socket soc, byte[] handShake){
+        try{
+            ObjectOutputStream Op = new ObjectOutputStream(soc.getOutputStream());
+            Op.writeObject(handShake);
+
+        }catch(IOException e){}
+    }
+
+    byte[] Receive_handshake_server(Socket soc){
+        byte[] rec_handshake = null;
+        try{
+            ObjectInputStream IP = new ObjectInputStream(soc.getInputStream());
+            rec_handshake = (byte[]) IP.readObject();
+        }catch(IOException e){}catch(ClassNotFoundException e){}return rec_handshake;
+
+    }
+
     @Override
     public void run() {
         try {
@@ -37,45 +55,29 @@ public class Server_Connect extends Thread {
                 byte[] header_info = new byte[28];
                 byte[] peer_ID = new byte[4];
                 int m = 0;
+
                 for (int i = 0; i < 31; i++) {
                     if (i >= 28) {
-                        for (int j = 28; j < 31; j++) {
-                            peer_ID[m] = get_HandShake_server[j];
-                            m++;
-                        }
 
+                        peer_ID[m] = get_HandShake_server[i];
+                        m++;
                     } else {
                         header_info[i] = get_HandShake_server[i];
                     }
-
-                    String toString = new String(peer_ID);
-                    int p_ID = Integer.parseInt(toString);
-
-
                 }
 
 
             }
-        } catch (IOException e) {
+
+
+        }catch (IOException e) {
         }
-    }
-
-    void Send_HandShake_server(Socket soc, byte[] handShake){
-        try{
-            ObjectOutputStream Op = new ObjectOutputStream(soc.getOutputStream());
-            Op.writeObject(handShake);
-
-        }catch(IOException e){}
-    }
-
-    byte[] Receive_handshake_server(Socket soc){
-        byte[] rec_handshake = null;
-        try{
-            ObjectInputStream IP = new ObjectInputStream(soc.getInputStream());
-            rec_handshake = (byte[]) IP.readObject();
-        }catch(IOException e){}catch(ClassNotFoundException e){}return rec_handshake;
 
     }
+
+
+
+
 
 
 }
