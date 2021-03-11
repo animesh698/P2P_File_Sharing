@@ -61,7 +61,7 @@ public class Client_Connect extends Thread {
         client_side_connection = peer_connect.getPeerDetails();
 
         ListIterator<String[]> obj = client_side_connection.listIterator();
-        System.out.println("connection sent");
+        System.out.println("connection sent! ");
         while(obj.hasNext()){
 
             String[] Info = obj.next();

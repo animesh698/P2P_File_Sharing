@@ -77,7 +77,9 @@ public class PeerCfg {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+
         }
+        System.out.println("List of all peerIDs:");
 
         return peer_ids;
     }

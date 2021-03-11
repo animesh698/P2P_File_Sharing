@@ -28,6 +28,7 @@ public class peerProcess {
 
         //create object of the Common.cfg class
         CommonCfg common_cfg = new CommonCfg();
+        System.out.println("Reading Common config....");
         common_cfg.readCommonCfg();
         FileName = common_cfg.getFileName();
         peer_process.FileSize = common_cfg.getFileSize();
@@ -37,7 +38,8 @@ public class peerProcess {
            and this has to be an int
          */
         peer_process.TotalPieces = (int) Math.ceil((double)peer_process.FileSize/peer_process.PieceSize);
-        PeerCfg peer_details = new PeerCfg(Integer.parseInt(args[0]));
+        PeerCfg peer_details = new PeerCfg(1001);
+        System.out.println("Reading peerinfo config....");
         peer_details.readPeerCfg();
         PeerIDs = peer_details.getPeerIDs();
         peer_process.peerID = peer_details.getPort();
@@ -50,28 +52,15 @@ public class peerProcess {
         //bitfield.bitfield_set(peer_process.hasFile,peer_process.TotalPieces);
 
         logGenerator.begin_logging(peer_process.peerID);
+        System.out.println("Creating log files....");
+
         peer_process.hasFile = true;
+        Server_Connect peer_listener = new Server_Connect(peer_process.peerID, peer_process.port);
+        peer_listener.start();
 
+        Client_Connect connect = new Client_Connect(peer_process.peerID, peer_process.port);
+        connect.start();
 
-
-        if(!peer_process.hasFile) {
-
-            hash_map = new HashMap<Integer, piece>();
-
-            Server_Connect peer_listener = new Server_Connect(peer_process.peerID, peer_process.port);
-            peer_listener.start();
-
-            Client_Connect connect = new Client_Connect(peer_process.peerID, peer_process.port);
-            connect.start();
-        }
-
-        else if(peer_process.hasFile) {
-            File.FileParser reader = new File.FileParser(peer_process.peerID, peer_process.PieceSize, FileName);
-            hash_map = reader.readFile();
-
-            Server_Connect peer_listener = new Server_Connect(peer_process.peerID, peer_process.port);
-            peer_listener.start();
-        }
 
 
 

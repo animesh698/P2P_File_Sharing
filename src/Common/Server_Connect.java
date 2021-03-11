@@ -42,7 +42,8 @@ public class Server_Connect extends Thread {
 
             soc_server = new ServerSocket(listener_port);
 
-            System.out.println("Server is up and running");
+            System.out.println("Server is up and running!");
+
             while (true) {
                 soc = soc_server.accept();
 
@@ -50,6 +51,7 @@ public class Server_Connect extends Thread {
 
 
                 HandShake_Message server_Msg = new HandShake_Message(current_peerID);
+                //System.out.println(current_peerID);
                 Send_HandShake_server(soc, server_Msg.Msg);
 
                 byte[] header_info = new byte[28];
